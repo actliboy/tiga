@@ -1,0 +1,1455 @@
+{
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "swagger": "2.0",
+  "info": {
+    "title": "user/user.service.proto",
+    "version": "1.0"
+  },
+  "paths": {
+    "/api/user/v1/add": {
+      "post": {
+        "description": "\n创建\n修改测试",
+        "tags": [
+          "用户相关",
+          "v1.0.0",
+          "v1.0.1"
+        ],
+        "summary": "用户注册",
+        "operationId": "/api/user/v1/addPOST",
+        "responses": {
+          "200": {
+            "description": "一个成功的返回",
+            "schema": {
+              "$ref": "#/definitions/TinyRep"
+            }
+          }
+        }
+      }
+    },
+    "/api/user/v2/add": {
+      "get": {
+        "description": "\n创建\n修改测试",
+        "tags": [
+          "用户相关",
+          "v1.0.0",
+          "v1.0.1"
+        ],
+        "summary": "用户注册",
+        "operationId": "/api/user/v2/addGET",
+        "responses": {
+          "200": {
+            "description": "一个成功的返回",
+            "schema": {
+              "$ref": "#/definitions/TinyRep"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/SendVerifyCode": {
+      "get": {
+        "description": "发送验证码",
+        "tags": [
+          "用户相关接口",
+          "util",
+          "v1.0.0"
+        ],
+        "summary": "发送验证码",
+        "operationId": "UserService_SendVerifyCode",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "邮箱.",
+            "name": "mail",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "手机号.",
+            "name": "phone",
+            "in": "query"
+          },
+          {
+            "enum": [
+              "ActionPlaceholder",
+              "ActionSignup",
+              "ActionActive",
+              "ActionRestPassword",
+              "ActionEditPassword",
+              "ActionCreateResume",
+              "ActionEditResume",
+              "ActionDELETEResume"
+            ],
+            "type": "string",
+            "default": "ActionPlaceholder",
+            "name": "type",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/emptyEmpty"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/auth": {
+      "get": {
+        "security": [
+          {
+            "Authorization": [
+              "read",
+              "write"
+            ],
+            "OAuth2": [
+              "read"
+            ]
+          }
+        ],
+        "description": "获取用户信息接口",
+        "tags": [
+          "用户相关接口",
+          "v1.0.0"
+        ],
+        "summary": "获取用户信息",
+        "operationId": "UserService_AuthInfo",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/userUserAuthInfo"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/baseUserList": {
+      "post": {
+        "description": "根据Id获取用户信息接口",
+        "tags": [
+          "用户相关接口",
+          "v1.0.0"
+        ],
+        "summary": "获取用户信息",
+        "operationId": "UserService_BaseList",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/userBaseListReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/userBaseListRep"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/user": {
+      "post": {
+        "description": "注册接口",
+        "tags": [
+          "用户相关接口",
+          "v1.0.0"
+        ],
+        "summary": "注册",
+        "operationId": "UserService_Signup",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/userSignupReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/emptyEmpty"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/user/actionLog": {
+      "get": {
+        "description": "操作日志接口",
+        "tags": [
+          "用户相关接口",
+          "v1.0.0"
+        ],
+        "summary": "操作日志",
+        "operationId": "UserService_ActionLogList",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "startTime",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "endTime",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/userActionLogListRep"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/user/active/{id}/{secret}": {
+      "get": {
+        "description": "激活接口",
+        "tags": [
+          "用户相关接口",
+          "v1.0.0"
+        ],
+        "summary": "激活",
+        "operationId": "UserService_Active",
+        "parameters": [
+          {
+            "type": "string",
+            "format": "uint64",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "name": "secret",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/userLoginRep"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/user/follow": {
+      "get": {
+        "tags": [
+          "用户相关接口",
+          "v1.0.0"
+        ],
+        "summary": "关注",
+        "operationId": "UserService_Follow",
+        "parameters": [
+          {
+            "type": "string",
+            "format": "uint64",
+            "name": "id",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/emptyEmpty"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "用户相关接口",
+          "v1.0.0"
+        ],
+        "summary": "取消关注",
+        "operationId": "UserService_delFollow",
+        "parameters": [
+          {
+            "type": "string",
+            "format": "uint64",
+            "name": "id",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/userBaseListRep"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/user/forgetPassword": {
+      "get": {
+        "description": "忘记密码接口",
+        "tags": [
+          "用户相关接口",
+          "v1.0.0"
+        ],
+        "summary": "忘记密码",
+        "operationId": "UserService_ForgetPassword",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "input",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "password",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "vCode",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/responseTinyRep"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/user/login": {
+      "post": {
+        "description": "登录接口",
+        "tags": [
+          "用户相关接口",
+          "v1.0.0"
+        ],
+        "summary": "登录",
+        "operationId": "UserService_Login",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/userLoginReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/userLoginRep"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/user/logout": {
+      "get": {
+        "description": "退出接口",
+        "tags": [
+          "用户相关接口",
+          "v1.0.0"
+        ],
+        "summary": "退出",
+        "operationId": "UserService_Logout",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/emptyEmpty"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/user/resetPassword/{id}/{secret}": {
+      "patch": {
+        "description": "重置密码接口",
+        "tags": [
+          "用户相关接口",
+          "v1.0.0"
+        ],
+        "summary": "重置密码",
+        "operationId": "UserService_ResetPassword",
+        "parameters": [
+          {
+            "type": "string",
+            "format": "uint64",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "name": "secret",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "密码"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/responseTinyRep"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/user/signupVerify": {
+      "post": {
+        "description": "发送验证码",
+        "tags": [
+          "用户相关接口",
+          "v1.0.0"
+        ],
+        "summary": "发送验证码",
+        "operationId": "UserService_SignupVerify",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/userSingUpVerifyReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/emptyEmpty"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/user/{id}": {
+      "get": {
+        "description": "根据Id获取用户信息接口",
+        "tags": [
+          "用户相关接口",
+          "v1.0.0"
+        ],
+        "summary": "获取用户信息",
+        "operationId": "UserService_Info",
+        "parameters": [
+          {
+            "type": "string",
+            "format": "uint64",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/userUserRep"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        }
+      },
+      "put": {
+        "security": [
+          {
+            "Authorization": [
+              "read"
+            ]
+          }
+        ],
+        "description": "编辑接口",
+        "tags": [
+          "用户相关接口",
+          "v1.0.0"
+        ],
+        "summary": "编辑",
+        "operationId": "UserService_Edit",
+        "parameters": [
+          {
+            "type": "string",
+            "format": "uint64",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/EditReqEditDetails"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/emptyEmpty"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/verifyCode": {
+      "get": {
+        "description": "验证码生成接口",
+        "tags": [
+          "用户相关接口",
+          "util",
+          "v1.0.0"
+        ],
+        "summary": "验证码",
+        "operationId": "UserService_VerifyCode",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        }
+      }
+    },
+    "/api/v2/user": {
+      "post": {
+        "tags": [
+          "用户相关接口",
+          "v1.0.0"
+        ],
+        "summary": "简单注册",
+        "operationId": "UserService_EasySignup",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/userSignupReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/userLoginRep"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        }
+      }
+    },
+    "/oauth/access_token": {
+      "post": {
+        "description": "签发token",
+        "tags": [
+          "用户相关接口",
+          "v1.0.0",
+          "oauth"
+        ],
+        "summary": "签发token",
+        "operationId": "OauthService_OauthToken",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/oauthOauthReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/responseHttpResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        }
+      }
+    },
+    "/oauth/authorize": {
+      "get": {
+        "description": "oauth验证",
+        "tags": [
+          "用户相关接口",
+          "v1.0.0",
+          "oauth"
+        ],
+        "summary": "oauth验证",
+        "operationId": "OauthService_OauthAuthorize",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "responseType",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "clientID",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "scope",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "redirectURI",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "state",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "userID",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "format": "int64",
+            "name": "accessTokenExp",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "clientSecret",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "code",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "refreshToken",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "grantType",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "accessType",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "loginURI",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/responseHttpResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "EditReqEditDetails": {
+      "type": "object",
+      "properties": {
+        "address": {
+          "type": "string"
+        },
+        "avatarUrl": {
+          "type": "string"
+        },
+        "birthday": {
+          "type": "string"
+        },
+        "coverUrl": {
+          "type": "string"
+        },
+        "eduExps": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/userResume"
+          }
+        },
+        "gender": {
+          "type": "integer",
+          "title": "性别，0未填写，1男，2女",
+          "$ref": "#/definitions/userGender"
+        },
+        "intro": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "signature": {
+          "type": "string"
+        },
+        "workExps": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/userResume"
+          }
+        }
+      }
+    },
+    "TinyRep": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "emptyEmpty": {
+      "type": "object"
+    },
+    "oauthOauthReq": {
+      "type": "object",
+      "properties": {
+        "accessTokenExp": {
+          "type": "string",
+          "format": "int64"
+        },
+        "accessType": {
+          "type": "string"
+        },
+        "clientID": {
+          "type": "string"
+        },
+        "clientSecret": {
+          "type": "string"
+        },
+        "code": {
+          "type": "string"
+        },
+        "grantType": {
+          "type": "string"
+        },
+        "loginURI": {
+          "type": "string"
+        },
+        "redirectURI": {
+          "type": "string"
+        },
+        "refreshToken": {
+          "type": "string"
+        },
+        "responseType": {
+          "type": "string"
+        },
+        "scope": {
+          "type": "string"
+        },
+        "state": {
+          "type": "string"
+        },
+        "userID": {
+          "type": "string"
+        }
+      }
+    },
+    "protobufAny": {
+      "description": "`Any` contains an arbitrary serialized protocol buffer message along with a\nURL that describes the type of the serialized message.\n\nProtobuf library provides support to pack/unpack Any values in the form\nof utility functions or additional generated methods of the Any type.\n\nExample 1: Pack and unpack a message in C++.\n\n    Foo foo = ...;\n    Any any;\n    any.PackFrom(foo);\n    ...\n    if (any.UnpackTo(\u0026foo)) {\n      ...\n    }\n\nExample 2: Pack and unpack a message in Java.\n\n    Foo foo = ...;\n    Any any = Any.pack(foo);\n    ...\n    if (any.is(Foo.class)) {\n      foo = any.unpack(Foo.class);\n    }\n\n Example 3: Pack and unpack a message in Python.\n\n    foo = Foo(...)\n    any = Any()\n    any.Pack(foo)\n    ...\n    if any.Is(Foo.DESCRIPTOR):\n      any.Unpack(foo)\n      ...\n\n Example 4: Pack and unpack a message in Go\n\n     foo := \u0026pb.Foo{...}\n     any, err := ptypes.MarshalAny(foo)\n     ...\n     foo := \u0026pb.Foo{}\n     if err := ptypes.UnmarshalAny(any, foo); err != nil {\n       ...\n     }\n\nThe pack methods provided by protobuf library will by default use\n'type.googleapis.com/full.type.name' as the type URL and the unpack\nmethods only use the fully qualified type name after the last '/'\nin the type URL, for example \"foo.bar.com/x/y.z\" will yield type\nname \"y.z\".\n\n\nJSON\n====\nThe JSON representation of an `Any` value uses the regular\nrepresentation of the deserialized, embedded message, with an\nadditional field `@type` which contains the type URL. Example:\n\n    package google.profile;\n    message Person {\n      string first_name = 1;\n      string last_name = 2;\n    }\n\n    {\n      \"@type\": \"type.googleapis.com/google.profile.Person\",\n      \"firstName\": \u003cstring\u003e,\n      \"lastName\": \u003cstring\u003e\n    }\n\nIf the embedded message type is well-known and has a custom JSON\nrepresentation, that representation will be embedded adding a field\n`value` which holds the custom JSON in addition to the `@type`\nfield. Example (for message [google.protobuf.Duration][]):\n\n    {\n      \"@type\": \"type.googleapis.com/google.protobuf.Duration\",\n      \"value\": \"1.212s\"\n    }",
+      "type": "object",
+      "properties": {
+        "typeUrl": {
+          "description": "A URL/resource name that uniquely identifies the type of the serialized\nprotocol buffer message. This string must contain at least\none \"/\" character. The last segment of the URL's path must represent\nthe fully qualified name of the type (as in\n`path/google.protobuf.Duration`). The name should be in a canonical form\n(e.g., leading \".\" is not accepted).\n\nIn practice, teams usually precompile into the binary all types that they\nexpect it to use in the context of Any. However, for URLs which use the\nscheme `http`, `https`, or no scheme, one can optionally set up a type\nserver that maps type URLs to message definitions as follows:\n\n* If no scheme is provided, `https` is assumed.\n* An HTTP GET on the URL must yield a [google.protobuf.Type][]\n  value in binary format, or produce an error.\n* Applications are allowed to cache lookup results based on the\n  URL, or have them precompiled into a binary to avoid any\n  lookup. Therefore, binary compatibility needs to be preserved\n  on changes to types. (Use versioned type names to manage\n  breaking changes.)\n\nNote: this functionality is not currently available in the official\nprotobuf release, and it is not used for type URLs beginning with\ntype.googleapis.com.\n\nSchemes other than `http`, `https` (or the empty scheme) might be\nused with implementation specific semantics.",
+          "type": "string"
+        },
+        "value": {
+          "description": "Must be a valid serialized protocol buffer of the above specified type.",
+          "type": "string",
+          "format": "byte"
+        }
+      }
+    },
+    "responseHttpResponse": {
+      "type": "object",
+      "properties": {
+        "Header": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "body": {
+          "type": "string",
+          "format": "byte"
+        },
+        "statusCode": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "responseTinyRep": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "rpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/protobufAny"
+          }
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "userAction": {
+      "type": "string",
+      "title": "用户操作",
+      "default": "ActionPlaceholder",
+      "enum": [
+        "ActionPlaceholder",
+        "ActionSignup",
+        "ActionActive",
+        "ActionRestPassword",
+        "ActionEditPassword",
+        "ActionCreateResume",
+        "ActionEditResume",
+        "ActionDELETEResume"
+      ]
+    },
+    "userActionLogListRep": {
+      "type": "object",
+      "properties": {
+        "count": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/userUserActionLog"
+          }
+        }
+      }
+    },
+    "userBaseListRep": {
+      "type": "object",
+      "properties": {
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/userUserBaseInfo"
+          }
+        },
+        "total": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    },
+    "userBaseListReq": {
+      "type": "object",
+      "properties": {
+        "ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "uint64"
+          }
+        },
+        "pageNo": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "userGender": {
+      "type": "string",
+      "title": "用户性别",
+      "default": "GenderPlaceholder",
+      "enum": [
+        "GenderPlaceholder",
+        "GenderUnfilled",
+        "GenderMale",
+        "GenderFemale"
+      ]
+    },
+    "userLoginRep": {
+      "type": "object",
+      "title": "登录返回",
+      "properties": {
+        "token": {
+          "type": "string"
+        },
+        "user": {
+          "$ref": "#/definitions/userUserBaseInfo"
+        }
+      }
+    },
+    "userLoginReq": {
+      "type": "object",
+      "title": "登录请求",
+      "properties": {
+        "input": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "vCode": {
+          "type": "string"
+        }
+      }
+    },
+    "userResume": {
+      "type": "object",
+      "title": "简历",
+      "properties": {
+        "company": {
+          "type": "string",
+          "title": "公司或组织或学校"
+        },
+        "department": {
+          "type": "string",
+          "title": "部门或专业"
+        },
+        "endTime": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer",
+          "format": "uint64"
+        },
+        "remark": {
+          "type": "string"
+        },
+        "startTime": {
+          "type": "string"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int64",
+          "readOnly": true
+        },
+        "title": {
+          "type": "string",
+          "title": "职位或学历"
+        },
+        "type": {
+          "type": "integer",
+          "format": "int64",
+          "title": "0-Education 教育经历,1- Work 职业生涯"
+        },
+        "userId": {
+          "type": "integer",
+          "format": "uint64"
+        }
+      }
+    },
+    "userRole": {
+      "type": "string",
+      "title": "用户角色",
+      "default": "PlaceholderRole",
+      "enum": [
+        "PlaceholderRole",
+        "RoleNormal",
+        "RoleAdmin",
+        "RoleSuperAdmin"
+      ]
+    },
+    "userSignupReq": {
+      "type": "object",
+      "properties": {
+        "gender": {
+          "$ref": "#/definitions/userGender"
+        },
+        "mail": {
+          "type": "string",
+          "title": "邮箱"
+        },
+        "name": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string",
+          "title": "密码",
+          "minLength": 6
+        },
+        "phone": {
+          "type": "string",
+          "title": "手机号"
+        },
+        "vCode": {
+          "type": "string",
+          "title": "验证码"
+        }
+      }
+    },
+    "userSingUpVerifyReq": {
+      "type": "object",
+      "title": "注册验证请求",
+      "properties": {
+        "mail": {
+          "type": "string",
+          "title": "邮箱"
+        },
+        "phone": {
+          "type": "string",
+          "title": "手机号"
+        }
+      },
+      "example": {
+        "mail": "123@qq.com",
+        "phone": "12345678901"
+      }
+    },
+    "userUser": {
+      "type": "object",
+      "title": "用户",
+      "properties": {
+        "IdNo": {
+          "type": "string"
+        },
+        "account": {
+          "type": "string"
+        },
+        "activatedAt": {
+          "type": "string"
+        },
+        "address": {
+          "type": "string"
+        },
+        "avatarUrl": {
+          "type": "string"
+        },
+        "birthday": {
+          "type": "string"
+        },
+        "coverUrl": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string"
+        },
+        "deletedAt": {
+          "type": "string"
+        },
+        "gender": {
+          "type": "integer",
+          "title": "性别，0未填写，1男，2女",
+          "$ref": "#/definitions/userGender"
+        },
+        "id": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "intro": {
+          "type": "string"
+        },
+        "mail": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "realName": {
+          "type": "string"
+        },
+        "role": {
+          "$ref": "#/definitions/userRole"
+        },
+        "signature": {
+          "type": "string"
+        },
+        "status": {
+          "$ref": "#/definitions/userUserStatus",
+          "readOnly": true
+        }
+      }
+    },
+    "userUserActionLog": {
+      "type": "object",
+      "title": "用户操作日志",
+      "properties": {
+        "action": {
+          "title": "类型",
+          "$ref": "#/definitions/userAction"
+        },
+        "createdAt": {
+          "type": "string"
+        },
+        "device": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "deviceInfo": {
+          "title": "设备",
+          "$ref": "#/definitions/userUserDeviceInfo"
+        },
+        "id": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "lastValue": {
+          "type": "string",
+          "format": "byte"
+        },
+        "relatedId": {
+          "type": "string",
+          "title": "相关id"
+        },
+        "remark": {
+          "type": "string"
+        },
+        "userId": {
+          "type": "string",
+          "format": "uint64"
+        }
+      }
+    },
+    "userUserAuthInfo": {
+      "type": "object",
+      "title": "用户授权信息",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "name": {
+          "type": "string"
+        },
+        "role": {
+          "$ref": "#/definitions/userRole"
+        },
+        "status": {
+          "$ref": "#/definitions/userUserStatus",
+          "readOnly": true
+        }
+      }
+    },
+    "userUserBaseInfo": {
+      "type": "object",
+      "properties": {
+        "avatarUrl": {
+          "type": "string"
+        },
+        "gender": {
+          "type": "integer",
+          "$ref": "#/definitions/userGender"
+        },
+        "id": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "name": {
+          "type": "string"
+        },
+        "score": {
+          "type": "integer",
+          "format": "uint64",
+          "title": "分数"
+        }
+      }
+    },
+    "userUserDeviceInfo": {
+      "type": "object",
+      "properties": {
+        "IP": {
+          "type": "string"
+        },
+        "appCode": {
+          "type": "string"
+        },
+        "appVersion": {
+          "type": "string"
+        },
+        "area": {
+          "type": "string"
+        },
+        "device": {
+          "type": "string",
+          "title": "设备"
+        },
+        "lat": {
+          "type": "string"
+        },
+        "lng": {
+          "type": "string"
+        },
+        "os": {
+          "type": "string"
+        },
+        "userAgent": {
+          "type": "string"
+        }
+      }
+    },
+    "userUserExt": {
+      "type": "object",
+      "properties": {
+        "articleCount": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "collectCount": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "diaryBookCount": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "diaryCount": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "favoritesCount": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "followCount": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "followedCount": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "id": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "lastActivatedAt": {
+          "type": "string"
+        },
+        "momentCount": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "score": {
+          "type": "integer",
+          "format": "uint64",
+          "title": "分数"
+        }
+      }
+    },
+    "userUserRep": {
+      "type": "object",
+      "properties": {
+        "uerExt": {
+          "$ref": "#/definitions/userUserExt"
+        },
+        "user": {
+          "$ref": "#/definitions/userUser"
+        }
+      }
+    },
+    "userUserStatus": {
+      "type": "string",
+      "title": "用户角色",
+      "default": "UserStatusPlaceholder",
+      "enum": [
+        "UserStatusPlaceholder",
+        "UserStatusInActive",
+        "UserStatusActivated",
+        "UserStatusFrozen",
+        "UserStatusDeleted"
+      ]
+    }
+  },
+  "tags": [
+    {
+      "description": "用户相关接口",
+      "name": "UserService"
+    },
+    {
+      "description": "Oauth相关接口",
+      "name": "OauthService"
+    }
+  ]
+}

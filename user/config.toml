@@ -1,0 +1,21 @@
+Module = "user"
+# dev | test | prod
+# Env = "dev"
+
+NoInject = ["Apollo","Etcd"]
+
+
+[ConfigCenter]
+Watch  = false
+[configCenter.nacos]
+Addr = "nacos.default"
+Group = "hoper"
+
+[dev]
+LocalConfigName = "local.toml"
+
+[test]
+NacosTenant = "b5b476ab-774f-4637-a8bf-e915635b4b24"
+
+[prod]
+NacosTenant = ""
